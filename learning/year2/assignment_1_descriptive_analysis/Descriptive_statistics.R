@@ -8,38 +8,42 @@
 
 #BSDS
 
+#setting our working directory
+setwd("C:/Users/STUDENTS/Desktop/Elijah_Kaizzi_B29158/R_programming/R_programming/learning/year2")
 
-
+#installing neccessary packages
 install.packages("ggplot2")
-
 install.packages("tidyverse")
-
 install.packages("lubridate")
-
-install.packages("diplyr")
+install.packages("dplyr")
 
 # Load Libraries
-
 library(tidyverse)
+library(ggplot2)#for the plots
+library(tidyverse)
+library(lubridate)#is for working with dates
+library(dplyr)#is for data manipulation
 
-library(lubridate)
-#setting the working directory
-setwd("C:/Users/user/Documents/BigData/Assignments")
 #importing the dataset
-data <- read.csv("C:/Users/user/Documents/BigData/Assignments/ida_credits_to_uganda_09-21-2025.txt", header = TRUE)
+data <- read.csv("C:/Users/STUDENTS/Desktop/Elijah_Kaizzi_B29158/R_programming/datasets/ida_credits_to_uganda_09-23-2025.csv", header = TRUE)
 view(data)
-#getting a statistical overview of the disbursed amount variable
-summary(data$Disbursed.Amount..US..)
+#getting a statistical overview of our dataset
+summary(data)
 # Count missing values per column
-ColSums(is.na(data))
+colSums(is.na(data))
 
-#QUESTION ONE: Time-series analysis of Disbursed Amount
 
-#turning the format of the date column
-data<- data %>%
-filter(Board.Approval.Date != "" & Board.Approval.Date != "TBD" & !is.na(Board.Approval.Date)) # Remove invalid entries
-data$Board.Approval.Date <- as.Date(data$Board.Approval.Date,
-tryFormats = c("%Y-%m-%d", "%m/%d/%Y", "%d-%b-%Y", "%B %d, %Y", "%d/%m/%Y"))
+####QUESTION ONE: Time-series analysis of Disbursed Amount
+
+#getting a statistical overview of the column 
+summary(data$Disbursed.Amount..US..)
+
+#we will use of the approval date to carryout our time series analysis
+#making sure the column has no missing values , "" or TBD values
+data<- data %>% filter(Board.Approval.Date != "" & Board.Approval.Date != "TBD" & !is.na(Board.Approval.Date))
+
+#changing the format of the approval date column to actual date format
+data$Board.Approval.Date <- as.Date(data$Board.Approval.Date,format ="%m/%d/%Y")
 
 ##Extracting the year because its what we are using for timestamps
 data$Year <- year(data$Board.Approval.Date)
