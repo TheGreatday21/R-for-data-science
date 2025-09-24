@@ -7,7 +7,7 @@
 #ACCESS NO: B29158
 
 #BSDS
-#This script and files are located on github at 
+#This script and files are located on github at < https://github.com/TheGreatday21/R-practice/tree/main/learning/year2/assignment_1_descriptive_analysis >
 
 
 
